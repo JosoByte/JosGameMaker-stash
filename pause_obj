@@ -1,0 +1,42 @@
+//this object deactivates everything on the current room, creating a pause effect
+//create event
+if (main_obj.canPause){
+    pauseSurface=surface_create(view_xview[0]+1,view_yview[0]+1); //+1 because it can't do it with 0 cordinates.
+    
+    surface_set_target(pauseSurface);
+    draw_clear_alpha(c_black, 0);
+    
+    with(all){
+        if(visible){
+            x = x-view_xview[0];
+            y = y-view_yview[0];
+            event_perform(ev_draw, 0);
+            x = x+view_xview[0];
+            y = y+view_yview[0];
+        }
+    }
+    
+    surface_reset_target();
+    instance_deactivate_all(true);
+    visible = true;
+}
+
+Draw Event:
+
+if (surface_exists(pauseSurface)){
+    draw_surface(pauseSurface, view_xview[0], view_yview[0]);
+}
+
+
+Key Press Event for <Escape> Key:
+
+instance_destroy(self);
+instance_activate_all();
+
+
+//this object is created with main_obj, pressing the esc key
+//part of main_obj that creates pause_obj, press esc event
+if (instance_exists(pause_obj)==false and canPause==true){
+    instance_create(0,0, pause_obj);
+}
+//canPause is set to true on the creation of main_obj, letting the pause object to pause, disabling it will not make the game pausable, perfect for cutscenes.
