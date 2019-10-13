@@ -1,0 +1,14 @@
+//Just a basic code that makes the camera move with your arrow keys
+
+if keyboard_check(vk_left) and view_xview[0]!=0{ //moves the camera and keeps it inside the room
+    view_xview[0]-=10;
+}
+if keyboard_check(vk_right) and view_xview[0]!=room_width{
+    view_xview[0]+=10;
+}
+if keyboard_check(vk_down) and view_yview[0]!=room_height{
+    view_yview[0]+=10;
+}
+if keyboard_check(vk_up) and view_yview[0]!=0{
+    view_yview[0]-=10;
+}
